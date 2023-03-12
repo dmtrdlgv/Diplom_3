@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 import static site.nomoreparties.stellarburgers.assist.Url.RECOVERY_PASSWORD_PAGE_URL;
 
 public class RecoveryPasswordPage {
@@ -15,9 +17,9 @@ public class RecoveryPasswordPage {
     private final By recoveryPageLabel = By.xpath("//h2[contains(text(), 'Восстановление пароля')]"); //Локатор страницы восстановления пароля
     private final By loginPageReference = By.xpath("//a[@href='/login']"); //Кнопка Войти
 
-    public RecoveryPasswordPage(WebDriver driver, WebDriverWait wait) {
+    public RecoveryPasswordPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = wait;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(4));
     }
 
     @Step("Open recovery page")

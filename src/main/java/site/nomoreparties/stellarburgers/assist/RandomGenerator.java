@@ -22,4 +22,8 @@ public class RandomGenerator {
         return RandomStringUtils.randomAlphanumeric(5, 20) + "!";
     }
 
+    public static String randomPassword(int size) {
+        return RandomStringUtils.randomAlphanumeric(size);
+    }
+
 }

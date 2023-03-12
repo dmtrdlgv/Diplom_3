@@ -3,12 +3,12 @@ package site.nomoreparties.stellarburgers.web.pageobject;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static org.junit.Assert.assertTrue;
 import static site.nomoreparties.stellarburgers.assist.Url.BASE_URL;
 
 public class BuildBurgerPage {
@@ -19,11 +19,9 @@ public class BuildBurgerPage {
     private final By bunTab = By.xpath("//span[contains(text(), 'Булки')]/.."); //кнопка вкладки Булки
     private final By sauceTab = By.xpath("//span[contains(text(), 'Соусы')]/.."); //кнопка вкладки Соусы
     private final By fillingTab = By.xpath("//span[contains(text(), 'Начинки')]/.."); //кнопка вкладки Начинки
-    private final By accountButton  = By.xpath("//a[@href='/account']"); //Кнопка входа в Личный кабинет
+    private final By accountButton = By.xpath("//a[@href='/account']"); //Кнопка входа в Личный кабинет
     private final By loginButton = By.xpath("//button[contains(text(), 'Войти в аккаунт')]"); //Кнопка входа в аккаунт
-    private final By bunSection = By.xpath("//h2[contains(text(), 'Булки')]"); //раздел ингредиентов Булки
-    private final By sauceSection = By.xpath("//h2[contains(text(), 'Соусы')]"); //раздел ингредиентов Соусы
-    private final By fillingSection = By.xpath("//h2[contains(text(), 'Начинки')]"); //раздел ингредиентов Начинки
+    private String attribute;
 
     public BuildBurgerPage(WebDriver driver) {
         this.driver = driver;
@@ -31,13 +29,13 @@ public class BuildBurgerPage {
     }
 
     @Step("Open build burger page")
-    public void openRegisterPage() {
+    public void openBuildBurgerPage() {
         driver.get(BASE_URL);
         driver.manage().window().maximize();
     }
 
     @Step("Check by label build burger page open")
-    public void isBuildBurgerPageOpened() {
+    public void checkBuildBurgerPageOpened() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(buildBurgerPageLabel));
     }
 
@@ -48,7 +46,8 @@ public class BuildBurgerPage {
 
     @Step("Check bun tab switch")
     public void checkBunTabSwitch() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(bunSection));
+        attribute = wait.until(ExpectedConditions.visibilityOfElementLocated(bunTab)).getAttribute("class");
+        assertTrue(attribute.contains("current"));
     }
 
     @Step("Click sauce tab")
@@ -58,8 +57,8 @@ public class BuildBurgerPage {
 
     @Step("Check sauce tab switch")
     public void checkSauceTabSwitch() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(bunSection));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(sauceSection));
+        attribute = wait.until(ExpectedConditions.visibilityOfElementLocated(sauceTab)).getAttribute("class");
+        assertTrue(attribute.contains("current"));
     }
 
     @Step("Click filling tab")
@@ -69,9 +68,8 @@ public class BuildBurgerPage {
 
     @Step("Check filling tab switch")
     public void checkFillingTabSwitch() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(bunSection));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(sauceSection));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(fillingSection));
+        attribute = wait.until(ExpectedConditions.visibilityOfElementLocated(fillingTab)).getAttribute("class");
+        assertTrue(attribute.contains("current"));
     }
 
     @Step("Click account button")

@@ -2,7 +2,7 @@ package site.nomoreparties.stellarburgers.assist;
 
 public class Url {
 
-    public static final String BASE_URL = "https://stellarburgers.nomoreparties.site/";
+    public static final String BASE_URL = "https://stellarburgers.nomoreparties.site";
     public static final String REGISTER_PAGE_URL = "https://stellarburgers.nomoreparties.site/register";
     public static final String LOGIN_PAGE_URL = "https://stellarburgers.nomoreparties.site/login";
     public static final String ACCOUNT_PAGE_URL = "https://stellarburgers.nomoreparties.site/account/profile";

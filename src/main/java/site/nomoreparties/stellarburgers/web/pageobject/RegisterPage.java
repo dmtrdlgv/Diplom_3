@@ -5,9 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
-import static org.junit.Assert.*;
 import static site.nomoreparties.stellarburgers.assist.Url.REGISTER_PAGE_URL;
 
 public class RegisterPage {
@@ -15,7 +15,7 @@ public class RegisterPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
     private final By registerPageLabel = By.xpath("//h2[contains(text(), 'Регистрация')]"); //локатор текста Регистраци
-    private final By nameInput = By.xpath("//label[contains(text(), 'Имя')]/../input[@name='Name']"); //локатор инпута Имя
+    private final By nameInput = By.xpath("//label[contains(text(), 'Имя')]/../input[@name='name']"); //локатор инпута Имя
     private final By emailInput = By.xpath("//label[contains(text(), 'Email')]/../input[@name='name']"); //локатор инпута Email
     private final By passwordInput = By.xpath("//input[@name='Пароль']"); //локатор инпута Пароль
     private final By registerButton = By.xpath("//button[contains(text(), 'Зарегистрироваться')]"); //кнопка Зарегистрироваться
@@ -34,7 +34,7 @@ public class RegisterPage {
     }
 
     @Step("Check by label register page open")
-    public void isRegisterPageOpened() {
+    public void checkRegisterPageOpened() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(registerPageLabel));
     }
 
@@ -51,6 +51,13 @@ public class RegisterPage {
     @Step("Filling user password input")
     public void fillPasswordInput(String userPassword) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInput)).sendKeys(userPassword);
+    }
+
+    @Step("Common step filling user name, email, password")
+    public void fillAllUserInputs(String name, String email, String password) {
+        fillNameInput(name);
+        fillEmailInput(email);
+        fillPasswordInput(password);
     }
 
     @Step("Click register button")

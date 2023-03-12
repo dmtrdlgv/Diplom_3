@@ -20,6 +20,7 @@ public class LoginPage {
     private final By loginButton = By.xpath("//button[contains(text(), 'Войти')]");
     private final By registerPageReference = By.xpath("//a[@href='/register']");
     private final By recoveryPageReference = By.xpath("//a[@href='/forgot-password']");
+    private final By accountButton = By.xpath("//a[@href='/account']"); //Кнопка входа в Личный кабинет
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -27,13 +28,13 @@ public class LoginPage {
     }
 
     @Step("Open login page")
-    public void openRegisterPage() {
+    public void openLoginPage() {
         driver.get(LOGIN_PAGE_URL);
         driver.manage().window().maximize();
     }
 
     @Step("Check by label login page open")
-    public void isLoginPageOpened() {
+    public void checkLoginPageOpen() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(loginPageLabel));
     }
 
@@ -52,6 +53,13 @@ public class LoginPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(loginButton)).click();
     }
 
+    @Step("Common step filling inputs and click login button")
+    public void fillInputsAndClickLoginButton(String userEmail, String userPassword) {
+        fillEmailInput(userEmail);
+        fillPasswordInput(userPassword);
+        clickLoginButton();
+    }
+
     @Step("Click register page reference")
     public void clickRegisterPageReference() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(registerPageReference)).click();
@@ -60,5 +68,10 @@ public class LoginPage {
     @Step("Click recovery password page reference")
     public void clickRecoveryPageReference() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(recoveryPageReference)).click();
+    }
+
+    @Step("Click account header button")
+    public void clickAccountButton() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(accountButton)).click();
     }
 }
