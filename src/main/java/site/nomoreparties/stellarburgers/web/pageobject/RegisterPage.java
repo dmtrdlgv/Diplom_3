@@ -14,12 +14,13 @@ public class RegisterPage {
 
     private final WebDriver driver;
     private final WebDriverWait wait;
-    private final By registerPageLabel = By.xpath("//h2[contains(text(), 'Регистрация')]");
-    private final By nameInput = By.xpath("//label[contains(text(), 'Имя')]/../input[@name='Name']");
-    private final By emailInput = By.xpath("//label[contains(text(), 'Email')]/../input[@name='name']");
-    private final By passwordInput = By.xpath("//input[@name='Пароль']");
-    private final By registerButton = By.xpath("//button[contains(text(), 'Зарегистрироваться')]");
-    private final By passwordErrorText = By.xpath("//p[contains(text(), 'Некорректный пароль')]");
+    private final By registerPageLabel = By.xpath("//h2[contains(text(), 'Регистрация')]"); //локатор текста Регистраци
+    private final By nameInput = By.xpath("//label[contains(text(), 'Имя')]/../input[@name='Name']"); //локатор инпута Имя
+    private final By emailInput = By.xpath("//label[contains(text(), 'Email')]/../input[@name='name']"); //локатор инпута Email
+    private final By passwordInput = By.xpath("//input[@name='Пароль']"); //локатор инпута Пароль
+    private final By registerButton = By.xpath("//button[contains(text(), 'Зарегистрироваться')]"); //кнопка Зарегистрироваться
+    private final By passwordErrorText = By.xpath("//p[contains(text(), 'Некорректный пароль')]"); //тест ошибки "Некорректный пароль"
+    private final By loginPageReference = By.xpath("//a[@href='/login']");
 
     public RegisterPage(WebDriver driver) {
         this.driver = driver;
@@ -32,7 +33,7 @@ public class RegisterPage {
         driver.manage().window().maximize();
     }
 
-    @Step("Check register page is opened by label")
+    @Step("Check by label register page open")
     public void isRegisterPageOpened() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(registerPageLabel));
     }
@@ -58,10 +59,12 @@ public class RegisterPage {
     }
 
     @Step("Check password error text")
-    public void checkPasswordErrorText(String expectedErrorText) {
-        String actualErrorText = wait.until(ExpectedConditions.visibilityOfElementLocated(passwordErrorText)).getText();
-        assertEquals("Текст сообщения об ошибке не соответствует ожидаемому", expectedErrorText, actualErrorText);
+    public void checkPasswordErrorText() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(passwordErrorText));
     }
 
-
+    @Step("Click login page reference")
+    public void clickLoginPageReference() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(loginPageReference)).click();
+    }
 }
